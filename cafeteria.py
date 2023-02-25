@@ -4,27 +4,35 @@ def checkOrder(order):
     VALID_NAME = "Entrada del nombre válida"
     VALID_SIZE = "Entrada de números válida"
 
+    # Check for inverse order organization (quantity, name)
     inverseName = order.rsplit(",", 1)[1]
     inverseSize = order.rsplit(",", 1)[0]
     if (checkName(inverseName) == VALID_NAME and checkSizes(inverseSize) == VALID_SIZE):
         return "La orden fue escrita al revés. Debe ser nombre, tamaños"
 
+    # Check for correct order organization (name, quantity)
     name = order.split(",", 1)[0]
     size = order.split(",", 1)[1]
     if (checkName(name) != VALID_NAME or checkSizes(size) != VALID_SIZE):
         return "Corrobore que el nombre de la orden solo incluya valores alfabéticos, seguido de una coma y los tamaños (separados por comas si hay más de uno)"
-    
     return "Entrada de la orden válida"
+
+
 
 def checkName(name):
     name = name.replace(" ", "")
+    
+    # Check for names within longitude range
     if len(name) > 15:
         return "El nombre excede el máximo tamaño"
     if len(name) < 2:
         return "El nombre es menor al mínimo tamaño"
+    
+    # Check for alphabetical names
     if not (name.isalpha()):
         return "El nombre no puede incluir valores que no sean alfabéticos"
     return "Entrada del nombre válida"
+
 
 
 def checkSizes(sizes):
@@ -74,5 +82,4 @@ def checkSizes(sizes):
     if (orderedSizes != sizes):
         return "En el tamaño se debe ingresar los números ascendentemente"
     
-    # Valid input
     return "Entrada de números válida"
